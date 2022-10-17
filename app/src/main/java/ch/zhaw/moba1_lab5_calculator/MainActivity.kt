@@ -10,9 +10,9 @@ import android.widget.TextView
 import ch.zhaw.moba1_lab5_calculator.R.id.resultView
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), View.OnClickListener {
     private var firstNo: Number? = null
-    private var secondNo: Number? = null
+    private var secondNo: Number? = 0 // TODO
     private var operation: String = ""
     private var result: Number? = null
     private lateinit var resultField: TextView
@@ -20,14 +20,18 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // TODO find out what goes here
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         resultField = findViewById(resultView)
+
+        arrayOf<Button>(
+            findViewById(R.id.additionButton),
+            findViewById(R.id.minusButton),
+        ).forEach {it.setOnClickListener(this)}
     }
 
-    fun onClick(view: View?) {
+    override fun onClick(view: View?) {
         // TODO
         if (view != null) {
             when (view.id) {
@@ -51,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             // TODO error message
             // please enter 2 numbers
         } else {
-            when (op) {
+            when (operation) {
                 "+" -> result = firstNo!!.toDouble() + secondNo!!.toDouble()
                 "-" -> result = firstNo!!.toDouble() - secondNo!!.toDouble()
             }
@@ -60,6 +64,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun putResult() {
-        // TODO put result to resultfield
+        resultField.text = result.toString()
     }
 }
