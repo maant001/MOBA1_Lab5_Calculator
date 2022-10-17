@@ -1,58 +1,65 @@
 package ch.zhaw.moba1_lab5_calculator
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import ch.zhaw.moba1_lab5_calculator.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import ch.zhaw.moba1_lab5_calculator.R.id.resultView
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
+
+class MainActivity : AppCompatActivity() {
+    private var firstNo: Number? = null
+    private var secondNo: Number? = null
+    private var operation: String = ""
+    private var result: Number? = null
+    private lateinit var resultField: TextView
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // TODO find out what goes here
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        resultField = findViewById(resultView)
+    }
 
-        setSupportActionBar(binding.toolbar)
-
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        appBarConfiguration = AppBarConfiguration(navController.graph)
-        setupActionBarWithNavController(navController, appBarConfiguration)
-
-        binding.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+    fun onClick(view: View?) {
+        // TODO
+        if (view != null) {
+            when (view.id) {
+                R.id.additionButton -> setOperation("+")
+                R.id.minusButton -> setOperation("-")
+            }
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
+    private fun setOperation(op: String) {
+        if (op == "+") {
+            operation = "+"
+        }
+        if (op == "-") {
+            operation = "-"
         }
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
+    private fun calculate() {
+        if (firstNo == null || secondNo == null) {
+            // TODO error message
+            // please enter 2 numbers
+        } else {
+            when (op) {
+                "+" -> result = firstNo!!.toDouble() + secondNo!!.toDouble()
+                "-" -> result = firstNo!!.toDouble() - secondNo!!.toDouble()
+            }
+        }
+        putResult()
+    }
+
+    private fun putResult() {
+        // TODO put result to resultfield
     }
 }
