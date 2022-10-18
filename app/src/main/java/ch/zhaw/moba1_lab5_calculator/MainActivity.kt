@@ -7,37 +7,43 @@ import ch.zhaw.moba1_lab5_calculator.databinding.ActivityMainBinding
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import ch.zhaw.moba1_lab5_calculator.R.id.resultView
+import ch.zhaw.moba1_lab5_calculator.R.id.*
+import com.google.android.material.textfield.TextInputEditText
+import java.text.DecimalFormat
+
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    private var firstNo: Number? = null
-    private var secondNo: Number? = 0 // TODO
+    //private var firstNo: Number? = null
+    //private var secondNo: Number? = null // TODO
     private var operation: String = ""
-    private var result: Number? = null
+    private var result: String = ""
     private lateinit var resultField: TextView
-
-
+    private lateinit var firstNoField: TextInputEditText
+    private lateinit var secondNoField: TextInputEditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         resultField = findViewById(resultView)
+        firstNoField = findViewById(firstNumberField)
+        secondNoField = findViewById(secondNumberField)
 
         arrayOf<Button>(
-            findViewById(R.id.additionButton),
-            findViewById(R.id.minusButton),
+            findViewById(additionButton),
+            findViewById(minusButton),
         ).forEach {it.setOnClickListener(this)}
     }
 
     override fun onClick(view: View?) {
         // TODO
-        if (view != null) {
-            when (view.id) {
-                R.id.additionButton -> setOperation("+")
-                R.id.minusButton -> setOperation("-")
+        if (view != null || result != null) {
+            when (view!!.id) {
+                additionButton -> setOperation("+")
+                minusButton -> setOperation("-")
             }
+            calculate()
         }
     }
 
@@ -50,20 +56,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    // TODO where to add this?
     private fun calculate() {
+        // TODO get numbers, this doesnt work correctly here
+        val firstNo = firstNoField.text.toString().toDouble()
+        val secondNo = secondNoField.text.toString().toDouble()
+
         if (firstNo == null || secondNo == null) {
             // TODO error message
             // please enter 2 numbers
+            resultField.text = "please enter two numbers"
+
         } else {
-            when (operation) {
-                "+" -> result = firstNo!!.toDouble() + secondNo!!.toDouble()
-                "-" -> result = firstNo!!.toDouble() - secondNo!!.toDouble()
+            // TODO
+            // i think error happens here
+
+            val calc = when (operation) {
+                "+" -> (firstNo!!.toDouble() + secondNo!!.toDouble())
+                "-" -> (firstNo!!.toDouble() - secondNo!!.toDouble())
+                else -> 0.0
             }
+            //putResult(calc)
+            resultField.text = calc.toString()
         }
-        putResult()
     }
 
-    private fun putResult() {
-        resultField.text = result.toString()
+    private fun putResult(calc: Double) {
+        //resultField.text = result?.toDouble().toString()
+        resultField.text = calc.toString()
     }
 }

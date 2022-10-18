@@ -23,6 +23,7 @@
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/firstNumberField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="first number" />
@@ -56,6 +57,7 @@
             android:layout_height="match_parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/secondNumberField"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="second number" />
