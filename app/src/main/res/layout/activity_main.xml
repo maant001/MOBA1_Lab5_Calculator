@@ -68,7 +68,7 @@
             android:id="@+id/resultView"
             android:layout_width="match_parent"
             android:layout_height="84dp"
-            android:text="Result"
+            android:text="Please enter two numbers"
             android:textAlignment="viewStart"
             android:textSize="16sp" />
 

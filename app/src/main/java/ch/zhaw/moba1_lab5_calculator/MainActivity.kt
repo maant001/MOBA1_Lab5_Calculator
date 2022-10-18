@@ -7,6 +7,7 @@ import ch.zhaw.moba1_lab5_calculator.databinding.ActivityMainBinding
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.text.isDigitsOnly
 import ch.zhaw.moba1_lab5_calculator.R.id.*
 import com.google.android.material.textfield.TextInputEditText
 import java.text.DecimalFormat
@@ -14,8 +15,8 @@ import java.text.DecimalFormat
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
-    //private var firstNo: Number? = null
-    //private var secondNo: Number? = null // TODO
+    //private var firstNo: Number? = 0
+    //private var secondNo: Number? = 0 // TODO
     private var operation: String = ""
     private var result: String = ""
     private lateinit var resultField: TextView
@@ -43,8 +44,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 additionButton -> setOperation("+")
                 minusButton -> setOperation("-")
             }
-            calculate()
+
+            if(!(firstNoField.text.toString() == null && secondNoField.text.toString() == null)) {
+                //firstNo = firstNoField.text.toString().toDouble()
+                //secondNo = secondNoField.text.toString().toDouble()
+                calculate()
+                //reset()
+            }
         }
+    }
+
+    private fun reset() {
+        //firstNo = 0
+        //secondNo = 0
+        result = ""
+        operation = ""
     }
 
     private fun setOperation(op: String) {
@@ -56,33 +70,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    // TODO where to add this?
     private fun calculate() {
-        // TODO get numbers, this doesnt work correctly here
-        val firstNo = firstNoField.text.toString().toDouble()
-        val secondNo = secondNoField.text.toString().toDouble()
-
-        if (firstNo == null || secondNo == null) {
-            // TODO error message
-            // please enter 2 numbers
-            resultField.text = "please enter two numbers"
-
+        if (firstNoField.text.isNullOrBlank() || secondNoField.text.isNullOrBlank()) {
+            resultField.text = "error! please enter two numbers!"
         } else {
-            // TODO
-            // i think error happens here
-
             val calc = when (operation) {
-                "+" -> (firstNo!!.toDouble() + secondNo!!.toDouble())
-                "-" -> (firstNo!!.toDouble() - secondNo!!.toDouble())
+                "+" -> (firstNoField.text.toString()!!.toDouble() + secondNoField.text.toString()!!.toDouble())
+                "-" -> (firstNoField.text.toString()!!.toDouble() - secondNoField.text.toString()!!.toDouble())
                 else -> 0.0
             }
-            //putResult(calc)
-            resultField.text = calc.toString()
+            putResult(calc)
+            }
         }
-    }
 
     private fun putResult(calc: Double) {
-        //resultField.text = result?.toDouble().toString()
         resultField.text = calc.toString()
     }
 }
