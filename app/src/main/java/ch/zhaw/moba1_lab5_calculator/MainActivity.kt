@@ -2,15 +2,12 @@ package ch.zhaw.moba1_lab5_calculator
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import ch.zhaw.moba1_lab5_calculator.databinding.ActivityMainBinding
 
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.text.isDigitsOnly
 import ch.zhaw.moba1_lab5_calculator.R.id.*
 import com.google.android.material.textfield.TextInputEditText
-import java.text.DecimalFormat
 
 
 
@@ -46,10 +43,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             if(!(firstNoField.text.toString() == null && secondNoField.text.toString() == null)) {
-                //firstNo = firstNoField.text.toString().toDouble()
-                //secondNo = secondNoField.text.toString().toDouble()
                 calculate()
-                //reset()
             }
         }
     }
