@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     //private var firstNo: Number? = 0
     //private var secondNo: Number? = 0 // TODO
     private var operation: String = ""
-    private var result: String = ""
+    //private var result: String = ""
     private lateinit var resultField: TextView
     private lateinit var firstNoField: TextInputEditText
     private lateinit var secondNoField: TextInputEditText
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(view: View?) {
         // TODO
-        if (view != null || result != null) {
+        if (view != null) {
             when (view!!.id) {
                 additionButton -> setOperation("+")
                 minusButton -> setOperation("-")
@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private fun reset() {
         //firstNo = 0
         //secondNo = 0
-        result = ""
+        //result = ""
         operation = ""
     }
 
